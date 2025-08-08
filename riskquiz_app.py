@@ -2,22 +2,29 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-# -----------------------------
-# PAGE CONFIG
-# -----------------------------
+# Set light theme and page layout
 st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
 
-# -----------------------------
-# GLOBAL STYLING (Light Theme & Black Text)
-# -----------------------------
+# Global CSS for light theme and readable text
 st.markdown("""
     <style>
-    html, body, [class*="css"]  {
-        color: #000 !important;
-        background-color: #fff !important;
+    html, body, [class*="css"] {
+        background-color: white !important;
+        color: black !important;
     }
 
-    /* Light theme for form elements */
+    div[role="radiogroup"] label {
+        color: black !important;
+        font-size: 16px !important;
+    }
+
+    .risk-question {
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 20px;
+        color: black !important;
+    }
+
     input, .stNumberInput input, .stTextInput input, .stSelectbox div {
         background-color: white !important;
         color: black !important;
@@ -26,24 +33,6 @@ st.markdown("""
     .stButton>button {
         background-color: black !important;
         color: white !important;
-    }
-
-    /* Black text for selectbox/radio labels */
-    div[role="radiogroup"] label,
-    div[role="radiogroup"] span,
-    div[class*="stSelectbox"] span {
-        color: black !important;
-        font-size: 1rem !important;
-    }
-
-    div.stRadio > label, div.stRadio > div > label {
-        font-size: 18px !important;
-    }
-
-    .risk-question {
-        font-size: 20px;
-        font-weight: 600;
-        margin-top: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -68,14 +57,13 @@ and your personal risk tolerance.
 # -----------------------------
 st.header("Your Tax & Inflation Info")
 
-marginal_tax = st.number_input("Marginal Tax Rate (%)", 0.0, 50.0, 17.0, step=0.1) / 100
-state_tax = st.number_input("State Tax Rate (%)", 0.0, 20.0, 7.0, step=0.1) / 100
-inflation = st.number_input("Inflation Rate (%)", 0.0, 10.0, 3.0, step=0.1) / 100
-
+marginal_tax = st.number_input("Marginal Tax Rate (%)", min_value=0.0, max_value=50.0, value=17.0, step=0.1) / 100
+state_tax = st.number_input("State Tax Rate (%)", min_value=0.0, max_value=20.0, value=7.0, step=0.1) / 100
+inflation = st.number_input("Inflation Rate (%)", min_value=0.0, max_value=10.0, value=3.0, step=0.1) / 100
 combined_tax = marginal_tax + state_tax - (marginal_tax * state_tax)
 
 # -----------------------------
-# VOLATILITY BAND SELECTION
+# VOLATILITY BANDS
 # -----------------------------
 volatility_mapping = {
     "Worst Year: -3%, Best Year: +6%": (3.5, 3.0),
@@ -105,57 +93,27 @@ std_dev = std_dev_percent / 100
 # -----------------------------
 st.header("Risk Tolerance Questionnaire")
 
-new_questions = [
-    {
-        "q": "You can take $100 guaranteed, or flip a coin to win $200 or nothing. Which do you choose?",
-        "choices": ["Take the sure $100", "Flip the coin for $200"],
-    },
-    {
-        "q": "If your portfolio dropped 10% in a month, would you:",
-        "choices": ["Sell investments to stop the losses", "Stay invested and wait for recovery"],
-    },
-    {
-        "q": "You can lock in a 5% gain or risk a 50/50 chance between gaining 15% or losing 5%. Which do you pick?",
-        "choices": ["Lock in the 5% gain", "Risk the 50/50 outcome"],
-    },
-    {
-        "q": "If the news says a market crash is coming, would you:",
-        "choices": ["Move to cash to avoid losses", "Keep your investments and stay the course"],
-    },
-    {
-        "q": "A friend shares a hot investment tip that could earn 40%, but might lose 20%. Do you:",
-        "choices": ["Avoid the risk", "Invest and take the chance"],
-    },
-    {
-        "q": "You can earn a safe 2% or take a 70% chance of earning 10% and a 30% chance of losing 10%. Do you:",
-        "choices": ["Take the safe 2%", "Go for the higher return despite the risk"],
-    },
-    {
-        "q": "If you own 10 different stocks, would you:",
-        "choices": ["Keep them all to spread risk", "Sell them all and invest in your favorite stock"],
-    },
-    {
-        "q": "You’re up 10% for the year. Do you:",
-        "choices": ["Stop now and secure the gain", "Keep investing, even if the market might drop"],
-    },
-    {
-        "q": "You can choose a portfolio with smaller ups and downs, or one that could go way up or way down. Which do you prefer?",
-        "choices": ["Smaller ups and downs", "Big swings for bigger gains"],
-    },
-    {
-        "q": "You’re given a choice between a savings account that grows slowly but safely, or investing in stocks which could make more but also lose money. Do you:",
-        "choices": ["Choose the savings account", "Invest in stocks for higher potential"],
-    },
+questions = [
+    ("You can take $100 guaranteed, or flip a coin to win $200 or nothing. Which do you choose?", ["Take the sure $100", "Flip the coin for $200"]),
+    ("If your portfolio dropped 10% in a month, would you:", ["Sell investments to stop the losses", "Stay invested and wait for recovery"]),
+    ("You can lock in a 5% gain or risk a 50/50 chance between gaining 15% or losing 5%. Which do you pick?", ["Lock in the 5% gain", "Risk the 50/50 outcome"]),
+    ("If the news says a market crash is coming, would you:", ["Move to cash to avoid losses", "Keep your investments and stay the course"]),
+    ("A friend shares a hot investment tip that could earn 40%, but might lose 20%. Do you:", ["Avoid the risk", "Invest and take the chance"]),
+    ("You can earn a safe 2% or take a 70% chance of earning 10% and a 30% chance of losing 10%. Do you:", ["Take the safe 2%", "Go for the higher return despite the risk"]),
+    ("If you own 10 different stocks, would you:", ["Keep them all to spread risk", "Sell them all and invest in your favorite stock"]),
+    ("You’re up 10% for the year. Do you:", ["Stop now and secure the gain", "Keep investing, even if the market might drop"]),
+    ("You can choose a portfolio with smaller ups and downs, or one that could go way up or way down. Which do you prefer?", ["Smaller ups and downs", "Big swings for bigger gains"]),
+    ("You’re given a choice between a savings account that grows slowly but safely, or investing in stocks which could make more but also lose money. Do you:", ["Choose the savings account", "Invest in stocks for higher potential"]),
 ]
 
 risk_points = []
-for i, q in enumerate(new_questions):
-    st.markdown(f"<div class='risk-question'>{q['q']}</div>", unsafe_allow_html=True)
-    choice = st.selectbox("", q["choices"], key=f"q{i}")
-    risk_points.append(-2 if choice == q["choices"][0] else 2)
+for i, (q_text, choices) in enumerate(questions):
+    st.markdown(f"<div class='risk-question'>{q_text}</div>", unsafe_allow_html=True)
+    choice = st.radio("", choices, key=f"q{i}")
+    risk_points.append(-2 if choice == choices[0] else 2)
 
 risk_score = sum(risk_points)
-risk_adjustment = risk_score * 0.001  # Each point = ±0.1%
+risk_adjustment = risk_score * 0.001
 
 # -----------------------------
 # CALCULATIONS
@@ -165,7 +123,7 @@ after_tax_nominal = adjusted_nominal * (1 - combined_tax)
 net_net_net_return = (1 + after_tax_nominal) / (1 + inflation) - 1
 
 # -----------------------------
-# DISPLAY SUMMARY
+# RESULTS
 # -----------------------------
 st.markdown(f"""
 ## Your Results
@@ -206,9 +164,7 @@ ax.set_xlabel("Years")
 ax.set_ylabel("Portfolio Value ($)")
 ax.legend()
 ax.ticklabel_format(style='plain', axis='y')
-ax.get_yaxis().set_major_formatter(
-    plt.FuncFormatter(lambda x, _: f'${x:,.0f}')
-)
+ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, _: f'${x:,.0f}'))
 
 st.pyplot(fig)
 
