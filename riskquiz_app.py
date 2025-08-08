@@ -177,42 +177,7 @@ st.markdown("""
 
 Bright Road Wealth Management, LLC (“BRWM”) is a Registered Investment Adviser ("RIA"). Registration as an investment adviser does not imply a certain level of skill or training, and the content of this communication has not been approved or verified by the United States Securities and Exchange Commission or by any state securities authority. BRWM renders individualized investment advice to persons in a particular state only after complying with the state's regulatory requirements, or pursuant to an applicable state exemption or exclusion. All investments carry risk, and no investment strategy can guarantee a profit or protect from loss of capital. Past performance is not indicative of future results.
 """)
-# FINAL CSS ENFORCEMENT – must be at the bottom
-st.markdown("""
-    <style>
-    /* Full light theme override */
-    html, body, .stApp {
-        background-color: white !important;
-        color: black !important;
-    }
 
-    /* Override widget containers */
-    [class^="st-"], [class*=" st-"] {
-        background-color: white !important;
-        color: black !important;
-    }
-
-    /* Specific widget fixes */
-    div[role="radiogroup"] label, div[role="radiogroup"] span {
-        color: black !important;
-        font-size: 1rem !important;
-    }
-
-    label, .st-bw, .st-c2, .st-ca, .st-cg {
-        color: black !important;
-    }
-
-    input, select, textarea, .stNumberInput input, .stTextInput input, .stSelectbox div {
-        color: black !important;
-        background-color: white !important;
-    }
-
-    .stButton>button {
-        background-color: black !important;
-        color: white !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 # FINAL CSS – preserve buttons + force black fill when selected
 st.markdown("""
