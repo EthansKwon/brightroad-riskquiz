@@ -214,25 +214,37 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# FINAL CSS – preserve buttons + force black fill when selected
 st.markdown("""
 <style>
-/* Reset radio button appearance and force black fill on selection */
-input[type="radio"] {
-    accent-color: black !important;
-    width: 18px;
-    height: 18px;
-}
-
-/* Ensure label text is black */
-div[role="radiogroup"] label, div[role="radiogroup"] span {
-    color: black !important;
-    font-size: 16px !important;
-}
-
-/* Light background globally */
+/* Full light theme */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
+
+/* Preserve visible radio circles and fix label color */
+div[role="radiogroup"] label, div[role="radiogroup"] span {
+    color: black !important;
+    font-size: 1rem !important;
+}
+
+/* Make selected radio button fill in black */
+input[type="radio"] {
+    accent-color: black !important;
+}
+
+/* Fix input styling */
+input, select, textarea, .stNumberInput input, .stTextInput input, .stSelectbox div {
+    color: black !important;
+    background-color: white !important;
+}
+
+/* Buttons */
+.stButton>button {
+    background-color: black !important;
+    color: white !important;
+}
 </style>
 """, unsafe_allow_html=True)
+
