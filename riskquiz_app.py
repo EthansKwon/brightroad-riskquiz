@@ -223,17 +223,12 @@ label, .st-bw, .st-c2, .st-ca, .st-cg {
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
 <style>
-/* Fix radio option text color */
-div[role="radiogroup"] label {
-    color: black !important;
-}
-
-/* Make sure text inside span is also black */
+/* Force black font and full opacity for all radio labels and spans */
+div[role="radiogroup"] label,
 div[role="radiogroup"] span {
     color: black !important;
+    opacity: 1 !important;
 }
 </style>
-""", unsafe_allow_html=True)
 
