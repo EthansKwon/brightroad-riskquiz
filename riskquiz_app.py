@@ -178,38 +178,37 @@ st.markdown("""
 Bright Road Wealth Management, LLC (“BRWM”) is a Registered Investment Adviser ("RIA"). Registration as an investment adviser does not imply a certain level of skill or training, and the content of this communication has not been approved or verified by the United States Securities and Exchange Commission or by any state securities authority. BRWM renders individualized investment advice to persons in a particular state only after complying with the state's regulatory requirements, or pursuant to an applicable state exemption or exclusion. All investments carry risk, and no investment strategy can guarantee a profit or protect from loss of capital. Past performance is not indicative of future results.
 """)
 
-
-# FINAL CSS – preserve buttons + force black fill when selected
 st.markdown("""
 <style>
-/* Full light theme */
+/* Force white theme */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Preserve visible radio circles and fix label color */
-div[role="radiogroup"] label, div[role="radiogroup"] span {
-    color: black !important;
-    font-size: 1rem !important;
-}
-
-/* Make selected radio button fill in black */
-input[type="radio"] {
-    accent-color: black !important;
-}
-
-/* Fix input styling */
+/* Input and dropdown styling */
 input, select, textarea, .stNumberInput input, .stTextInput input, .stSelectbox div {
-    color: black !important;
     background-color: white !important;
+    color: black !important;
 }
 
-/* Buttons */
-.stButton>button {
+/* Button styling */
+.stButton > button {
     background-color: black !important;
     color: white !important;
 }
+
+/* Fix radio button label text color */
+div[role="radiogroup"] label {
+    color: black !important;
+    font-size: 16px !important;
+}
+
+/* Fix radio circle fill color */
+input[type="radio"] {
+    accent-color: black !important;
+    width: 18px;
+    height: 18px;
+}
 </style>
 """, unsafe_allow_html=True)
-
