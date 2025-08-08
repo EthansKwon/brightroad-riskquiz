@@ -26,7 +26,16 @@ st.set_page_config(
     layout="centered"
 )
 
-
+st.markdown("""
+    <style>
+    /* Fix radio button label colors in all themes (especially Streamlit Cloud) */
+    div[role="radiogroup"] label {
+        color: black !important;
+        font-weight: normal !important;
+        font-size: 16px !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 
 # -----------------------------
