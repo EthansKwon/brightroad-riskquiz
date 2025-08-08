@@ -216,20 +216,18 @@ st.markdown("""
 
 
 st.markdown("""
-    <style>
-    /* Ensure radio button input circles are visible */
-    div[role="radiogroup"] input[type="radio"] {
-        opacity: 1 !important;
-        position: relative !important;
-        margin-right: 0.5em !important;
-    }
-
-    /* Optional: fix bullet alignment */
-    div[role="radiogroup"] label {
-        display: flex !important;
-        align-items: center !important;
-        gap: 0.5em;
-    }
-    </style>
+<style>
+/* Re-enable and show radio button circles */
+div[role="radiogroup"] input[type="radio"] {
+    appearance: auto !important;
+    -webkit-appearance: radio !important;
+    -moz-appearance: radio !important;
+    opacity: 1 !important;
+    position: static !important;
+    pointer-events: auto !important;
+    margin-right: 6px !important;
+}
+</style>
 """, unsafe_allow_html=True)
+
 
