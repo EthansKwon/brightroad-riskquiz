@@ -180,13 +180,13 @@ Bright Road Wealth Management, LLC (“BRWM”) is a Registered Investment Advis
 
 st.markdown("""
 <style>
-/* Global light theme override */
+/* Global theme override */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Widget inputs */
+/* Form fields and dropdowns */
 input, select, textarea,
 .stNumberInput input,
 .stTextInput input,
@@ -195,25 +195,30 @@ input, select, textarea,
     color: black !important;
 }
 
-/* Radio button circles */
+/* Radio button circle (selected and unselected) */
 input[type="radio"] {
     accent-color: black !important;
     width: 16px;
     height: 16px;
 }
 
-/* Radio button label text */
+/* Make sure radio button text is black */
 div[role="radiogroup"] label,
-div[role="radiogroup"] label span {
+div[role="radiogroup"] span {
     color: black !important;
     font-size: 16px !important;
+    font-weight: normal !important;
 }
 
-/* Button styling */
+/* Other label text overrides */
+label, .st-bw, .st-c2, .st-ca, .st-cg {
+    color: black !important;
+}
+
+/* Buttons */
 .stButton > button {
     background-color: black !important;
     color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
-
