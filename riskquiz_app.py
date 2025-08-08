@@ -275,13 +275,14 @@ st.markdown("""
 Bright Road Wealth Management, LLC (“BRWM”) is a Registered Investment Adviser ("RIA"). Registration as an investment adviser does not imply a certain level of skill or training, and the content of this communication has not been approved or verified by the United States Securities and Exchange Commission or by any state securities authority. BRWM renders individualized investment advice to persons in a particular state only after complying with the state's regulatory requirements, or pursuant to an applicable state exemption or exclusion. All investments carry risk, and no investment strategy can guarantee a profit or protect from loss of capital. Past performance is not indicative of future results.
 """)
 
-# FINAL FIX: Force black font on radio button choices in all themes
+# Final CSS fix: force radio button text color to black in all themes (Streamlit Cloud safe)
 st.markdown("""
     <style>
-    .stRadio div[role='radiogroup'] label {
+    div[role="radiogroup"] > label, div[role="radiogroup"] span {
         color: black !important;
         font-size: 1rem !important;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
