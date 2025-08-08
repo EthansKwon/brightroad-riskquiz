@@ -207,7 +207,9 @@ new_questions = [
 risk_points = []
 for i, q in enumerate(new_questions):
     st.markdown(f"<div class='risk-question'>{q['q']}</div>", unsafe_allow_html=True)
-    choice = st.radio("", q["choices"], key=f"q{i}")
+   st.markdown(f"<div class='risk-question'>{q['q']}</div>", unsafe_allow_html=True)
+choice = st.selectbox("", q["choices"], key=f"q{i}")
+
     risk_points.append(-2 if choice == q["choices"][0] else 2)
 
 risk_score = sum(risk_points)
