@@ -2,41 +2,51 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Force light theme using Streamlit's config system
+# -----------------------------
+# PAGE CONFIG
+# -----------------------------
 st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
 
-# Apply light theme styling using markdown (optional, ensures better contrast)
-st.markdown(
-    """
+# -----------------------------
+# GLOBAL STYLING (Light Theme & Black Text)
+# -----------------------------
+st.markdown("""
     <style>
     html, body, [class*="css"]  {
         color: #000 !important;
         background-color: #fff !important;
     }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
-# -----------------------------
-# PAGE CONFIG
-# -----------------------------
-st.set_page_config(
-    page_title="Bright Road Risk Quiz",
-    layout="centered"
-)
-
-st.markdown("""
-    <style>
-    /* Fix radio button label colors in all themes (especially Streamlit Cloud) */
-    div[role="radiogroup"] label {
+    /* Light theme for form elements */
+    input, .stNumberInput input, .stTextInput input, .stSelectbox div {
+        background-color: white !important;
         color: black !important;
-        font-weight: normal !important;
-        font-size: 16px !important;
+    }
+
+    .stButton>button {
+        background-color: black !important;
+        color: white !important;
+    }
+
+    /* Black text for selectbox/radio labels */
+    div[role="radiogroup"] label,
+    div[role="radiogroup"] span,
+    div[class*="stSelectbox"] span {
+        color: black !important;
+        font-size: 1rem !important;
+    }
+
+    div.stRadio > label, div.stRadio > div > label {
+        font-size: 18px !important;
+    }
+
+    .risk-question {
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
-
 
 # -----------------------------
 # APP TITLE & LOGO
@@ -53,71 +63,19 @@ and your personal risk tolerance.
 *Note: This is an educational tool and not a guarantee of future results.*
 """)
 
-# Force dark theme styling for text and widgets
-st.markdown("""
-    <style>
-    /* Make all text dark */
-    html, body, [class*="css"] {
-        color: #000 !important;
-    }
-
-    /* Fix radio button and select label colors */
-    label, .st-bw, .st-c2, .st-ca, .st-cg {
-        color: #000 !important;
-    }
-
-    /* Input boxes and dropdown text */
-    input, select, textarea {
-        color: #000 !important;
-        background-color: #fff !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-
-
-# -----------------------------
-# FORCE LIGHT THEME
-# -----------------------------
-light_theme_css = """
-<style>
-    body, .stApp {
-        background-color: white !important;
-        color: black !important;
-    }
-    input, .stNumberInput input, .stTextInput input, .stSelectbox div {
-        background-color: white !important;
-        color: black !important;
-    }
-    .stButton>button {
-        background-color: black !important;
-        color: white !important;
-    }
-</style>
-"""
-st.markdown(light_theme_css, unsafe_allow_html=True)
-
 # -----------------------------
 # TAX & INFLATION INPUTS
 # -----------------------------
 st.header("Your Tax & Inflation Info")
 
-marginal_tax = st.number_input(
-    "Marginal Tax Rate (%)", min_value=0.0, max_value=50.0, value=17.0, step=0.1
-) / 100
-
-state_tax = st.number_input(
-    "State Tax Rate (%)", min_value=0.0, max_value=20.0, value=7.0, step=0.1
-) / 100
-
-inflation = st.number_input(
-    "Inflation Rate (%)", min_value=0.0, max_value=10.0, value=3.0, step=0.1
-) / 100
+marginal_tax = st.number_input("Marginal Tax Rate (%)", 0.0, 50.0, 17.0, step=0.1) / 100
+state_tax = st.number_input("State Tax Rate (%)", 0.0, 20.0, 7.0, step=0.1) / 100
+inflation = st.number_input("Inflation Rate (%)", 0.0, 10.0, 3.0, step=0.1) / 100
 
 combined_tax = marginal_tax + state_tax - (marginal_tax * state_tax)
 
 # -----------------------------
-# VOLATILITY BANDS SELECTION
+# VOLATILITY BAND SELECTION
 # -----------------------------
 volatility_mapping = {
     "Worst Year: -3%, Best Year: +6%": (3.5, 3.0),
@@ -145,20 +103,6 @@ std_dev = std_dev_percent / 100
 # -----------------------------
 # RISK TOLERANCE QUESTIONS
 # -----------------------------
-# Increase font size via CSS
-st.markdown("""
-    <style>
-    div.stRadio > label, div.stRadio > div > label {
-        font-size: 18px !important;
-    }
-    .risk-question {
-        font-size: 20px;
-        font-weight: 600;
-        margin-top: 20px;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 st.header("Risk Tolerance Questionnaire")
 
 new_questions = [
@@ -207,9 +151,7 @@ new_questions = [
 risk_points = []
 for i, q in enumerate(new_questions):
     st.markdown(f"<div class='risk-question'>{q['q']}</div>", unsafe_allow_html=True)
-   st.markdown(f"<div class='risk-question'>{q['q']}</div>", unsafe_allow_html=True)
-choice = st.selectbox("", q["choices"], key=f"q{i}")
-
+    choice = st.selectbox("", q["choices"], key=f"q{i}")
     risk_points.append(-2 if choice == q["choices"][0] else 2)
 
 risk_score = sum(risk_points)
@@ -270,21 +212,15 @@ ax.get_yaxis().set_major_formatter(
 
 st.pyplot(fig)
 
+# -----------------------------
+# DISCLOSURE
+# -----------------------------
 st.markdown("""
----  
+---
 **Disclosure**  
 
 Bright Road Wealth Management, LLC (“BRWM”) is a Registered Investment Adviser ("RIA"). Registration as an investment adviser does not imply a certain level of skill or training, and the content of this communication has not been approved or verified by the United States Securities and Exchange Commission or by any state securities authority. BRWM renders individualized investment advice to persons in a particular state only after complying with the state's regulatory requirements, or pursuant to an applicable state exemption or exclusion. All investments carry risk, and no investment strategy can guarantee a profit or protect from loss of capital. Past performance is not indicative of future results.
 """)
 
-# Final CSS fix: force radio button text color to black in all themes (Streamlit Cloud safe)
-st.markdown("""
-    <style>
-    div[role="radiogroup"] > label, div[role="radiogroup"] span {
-        color: black !important;
-        font-size: 1rem !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 
