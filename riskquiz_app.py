@@ -216,27 +216,23 @@ st.markdown("""
 
 st.markdown("""
 <style>
-/* Global white background and black text */
+/* Reset radio button appearance and force black fill on selection */
+input[type="radio"] {
+    accent-color: black !important;
+    width: 18px;
+    height: 18px;
+}
+
+/* Ensure label text is black */
+div[role="radiogroup"] label, div[role="radiogroup"] span {
+    color: black !important;
+    font-size: 16px !important;
+}
+
+/* Light background globally */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
-}
-
-/* Radio button labels */
-div[role="radiogroup"] label {
-    color: black !important;
-    font-size: 16px !important;
-    display: flex;
-    align-items: center;
-}
-
-/* Restore native radio buttons with black fill */
-input[type="radio"] {
-    appearance: auto !important;
-    accent-color: black !important;
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
 }
 </style>
 """, unsafe_allow_html=True)
