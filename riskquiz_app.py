@@ -5,6 +5,53 @@ import matplotlib.pyplot as plt
 # Set light theme and page layout
 st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
 
+st.markdown("""
+<style>
+/* Global white theme */
+html, body, .stApp {
+    background-color: white !important;
+    color: black !important;
+}
+
+/* Form inputs and dropdowns */
+input, select, textarea,
+.stNumberInput input,
+.stTextInput input,
+.stSelectbox div {
+    background-color: white !important;
+    color: black !important;
+}
+
+/* Radio button circles */
+input[type="radio"] {
+    accent-color: black !important;
+    width: 16px;
+    height: 16px;
+}
+
+/* Radio button text (selected and unselected) */
+div[role="radiogroup"] label,
+div[role="radiogroup"] span {
+    color: black !important;
+    opacity: 1 !important;
+    font-size: 16px !important;
+}
+
+/* Other label text */
+label, .st-bw, .st-c2, .st-ca, .st-cg {
+    color: black !important;
+}
+
+/* Button styling */
+.stButton > button {
+    background-color: black !important;
+    color: white !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
 # Global CSS for light theme and readable text
 st.markdown("""
     <style>
@@ -177,50 +224,5 @@ st.markdown("""
 
 Bright Road Wealth Management, LLC (“BRWM”) is a Registered Investment Adviser ("RIA"). Registration as an investment adviser does not imply a certain level of skill or training, and the content of this communication has not been approved or verified by the United States Securities and Exchange Commission or by any state securities authority. BRWM renders individualized investment advice to persons in a particular state only after complying with the state's regulatory requirements, or pursuant to an applicable state exemption or exclusion. All investments carry risk, and no investment strategy can guarantee a profit or protect from loss of capital. Past performance is not indicative of future results.
 """)
-
-st.markdown("""
-<style>
-/* Global white theme */
-html, body, .stApp {
-    background-color: white !important;
-    color: black !important;
-}
-
-/* Form inputs and dropdowns */
-input, select, textarea,
-.stNumberInput input,
-.stTextInput input,
-.stSelectbox div {
-    background-color: white !important;
-    color: black !important;
-}
-
-/* Radio button circles */
-input[type="radio"] {
-    accent-color: black !important;
-    width: 16px;
-    height: 16px;
-}
-
-/* Radio button text (selected and unselected) */
-div[role="radiogroup"] label,
-div[role="radiogroup"] span {
-    color: black !important;
-    opacity: 1 !important;
-    font-size: 16px !important;
-}
-
-/* Other label text */
-label, .st-bw, .st-c2, .st-ca, .st-cg {
-    color: black !important;
-}
-
-/* Button styling */
-.stButton > button {
-    background-color: black !important;
-    color: white !important;
-}
-</style>
-""", unsafe_allow_html=True)
 
 
