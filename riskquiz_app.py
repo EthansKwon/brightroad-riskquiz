@@ -7,48 +7,37 @@ st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
 
 st.markdown("""
 <style>
-/* Global white theme */
+/* Set app to white background and black text */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Form inputs and dropdowns */
-input, select, textarea,
-.stNumberInput input,
-.stTextInput input,
-.stSelectbox div {
+/* Radio button text should be black */
+div[role="radiogroup"] label, div[role="radiogroup"] span {
+    color: black !important;
+    font-size: 16px !important;
+}
+
+/* Radio buttons (circles) should be black when selected */
+input[type="radio"] {
+    accent-color: black !important;
+}
+
+/* Input fields */
+input, select, textarea {
     background-color: white !important;
     color: black !important;
 }
 
-/* Radio button circles */
-input[type="radio"] {
-    accent-color: black !important;
-    width: 16px;
-    height: 16px;
-}
-
-/* Radio button text (selected and unselected) */
-div[role="radiogroup"] label,
-div[role="radiogroup"] span {
-    color: black !important;
-    opacity: 1 !important;
-    font-size: 16px !important;
-}
-
-/* Other label text */
-label, .st-bw, .st-c2, .st-ca, .st-cg {
-    color: black !important;
-}
-
-/* Button styling */
+/* Buttons */
 .stButton > button {
     background-color: black !important;
     color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
