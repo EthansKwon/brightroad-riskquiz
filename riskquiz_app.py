@@ -217,21 +217,26 @@ st.markdown("""
 
 st.markdown("""
 <style>
-/* Force radio buttons to render and be clickable with visible black fill on selection */
-div[role="radiogroup"] > label > div:first-child {
-    display: inline-block !important;
-    width: 18px;
-    height: 18px;
-    border: 2px solid black;
-    border-radius: 50%;
-    margin-right: 8px;
-    vertical-align: middle;
+/* Force light theme across app */
+html, body, .stApp {
     background-color: white !important;
-    position: relative;
+    color: black !important;
 }
 
-div[role="radiogroup"] > label[data-selected="true"] > div:first-child {
-    background-color: black !important;
+/* Make radio labels and options readable */
+div[role="radiogroup"] label {
+    color: black !important;
+    font-size: 16px !important;
+    display: flex;
+    align-items: center;
+}
+
+/* Show the actual radio circle clearly */
+div[role="radiogroup"] input[type="radio"] {
+    accent-color: black !important;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
 }
 </style>
 """, unsafe_allow_html=True)
