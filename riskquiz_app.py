@@ -215,4 +215,21 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+st.markdown("""
+    <style>
+    /* Ensure radio button input circles are visible */
+    div[role="radiogroup"] input[type="radio"] {
+        opacity: 1 !important;
+        position: relative !important;
+        margin-right: 0.5em !important;
+    }
+
+    /* Optional: fix bullet alignment */
+    div[role="radiogroup"] label {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5em;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
