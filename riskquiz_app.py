@@ -26,6 +26,25 @@ st.set_page_config(
     layout="centered"
 )
 
+# Force radio label text to be visible in all themes
+st.markdown("""
+    <style>
+    /* Force radio button text color */
+    .stRadio > div label {
+        color: black !important;
+        font-size: 1rem !important;
+    }
+
+    /* Optional: also apply to checkboxes if needed */
+    .stCheckbox > div label {
+        color: black !important;
+        font-size: 1rem !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
+
 # -----------------------------
 # APP TITLE & LOGO
 # -----------------------------
