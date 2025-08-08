@@ -217,7 +217,7 @@ st.markdown("""
 
 st.markdown("""
 <style>
-/* Force radio buttons to render and be clickable */
+/* Force radio buttons to render and be clickable with visible black fill on selection */
 div[role="radiogroup"] > label > div:first-child {
     display: inline-block !important;
     width: 18px;
@@ -227,22 +227,11 @@ div[role="radiogroup"] > label > div:first-child {
     margin-right: 8px;
     vertical-align: middle;
     background-color: white !important;
+    position: relative;
 }
 
-div[role="radiogroup"] > label > div:first-child::after {
-    content: "";
-    display: block;
-    width: 10px;
-    height: 10px;
-    margin: 3px;
-    border-radius: 50%;
-    background-color: black;
-    visibility: hidden;
-}
-
-div[role="radiogroup"] > label[data-selected="true"] > div:first-child::after {
-    visibility: visible;
+div[role="radiogroup"] > label[data-selected="true"] > div:first-child {
+    background-color: black !important;
 }
 </style>
 """, unsafe_allow_html=True)
-
