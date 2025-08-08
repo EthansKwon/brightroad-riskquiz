@@ -108,9 +108,9 @@ questions = [
 
 risk_points = []
 for i, (q_text, choices) in enumerate(questions):
-    choice = st.radio(q_text, choices, key=f"q{i}")
+    st.markdown(f"<div class='risk-question'>{q_text}</div>", unsafe_allow_html=True)
+    choice = st.radio("", choices, key=f"q{i}")
     risk_points.append(-2 if choice == choices[0] else 2)
-
 
 risk_score = sum(risk_points)
 risk_adjustment = risk_score * 0.001
