@@ -217,17 +217,32 @@ st.markdown("""
 
 st.markdown("""
 <style>
-/* Re-enable and show radio button circles */
-div[role="radiogroup"] input[type="radio"] {
-    appearance: auto !important;
-    -webkit-appearance: radio !important;
-    -moz-appearance: radio !important;
-    opacity: 1 !important;
-    position: static !important;
-    pointer-events: auto !important;
-    margin-right: 6px !important;
+/* Force radio buttons to render and be clickable */
+div[role="radiogroup"] > label > div:first-child {
+    display: inline-block !important;
+    width: 18px;
+    height: 18px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+    background-color: white !important;
+}
+
+div[role="radiogroup"] > label > div:first-child::after {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 3px;
+    border-radius: 50%;
+    background-color: black;
+    visibility: hidden;
+}
+
+div[role="radiogroup"] > label[data-selected="true"] > div:first-child::after {
+    visibility: visible;
 }
 </style>
 """, unsafe_allow_html=True)
-
 
