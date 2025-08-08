@@ -2,6 +2,22 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Force light theme using Streamlit's config system
+st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
+
+# Apply light theme styling using markdown (optional, ensures better contrast)
+st.markdown(
+    """
+    <style>
+    html, body, [class*="css"]  {
+        color: #000 !important;
+        background-color: #fff !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # -----------------------------
 # PAGE CONFIG
 # -----------------------------
