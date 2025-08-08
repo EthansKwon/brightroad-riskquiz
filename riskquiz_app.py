@@ -2,25 +2,6 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Force dark text for all labels and options
-st.markdown("""
-    <style>
-    body {
-        color: #000000 !important;
-    }
-    div.stRadio > label, div.stRadio > div > label {
-        color: #000000 !important;
-    }
-    .stSelectbox, .stTextInput, .stNumberInput, .stButton {
-        color: #000000 !important;
-    }
-    .stMarkdown, .stText {
-        color: #000000 !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-
 # Force light theme using Streamlit's config system
 st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
 
@@ -59,6 +40,29 @@ and your personal risk tolerance.
 
 *Note: This is an educational tool and not a guarantee of future results.*
 """)
+
+# Force dark theme styling for text and widgets
+st.markdown("""
+    <style>
+    /* Make all text dark */
+    html, body, [class*="css"] {
+        color: #000 !important;
+    }
+
+    /* Fix radio button and select label colors */
+    label, .st-bw, .st-c2, .st-ca, .st-cg {
+        color: #000 !important;
+    }
+
+    /* Input boxes and dropdown text */
+    input, select, textarea {
+        color: #000 !important;
+        background-color: #fff !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
 
 # -----------------------------
 # FORCE LIGHT THEME
