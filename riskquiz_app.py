@@ -2,60 +2,45 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Force light theme using Streamlit's config system
-st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
-
-# Apply light theme styling using markdown (optional, ensures better contrast)
-st.markdown(
-    """
-    <style>
-    html, body, [class*="css"]  {
-        color: #000 !important;
-        background-color: #fff !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 # -----------------------------
 # PAGE CONFIG
 # -----------------------------
-st.set_page_config(
-    page_title="Bright Road Risk Quiz",
-    layout="centered"
-)
+st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
 
-# Force radio label text to be visible in all themes
-st.markdown("""
-    <style>
-    /* Force radio button text color */
-    .stRadio > div label {
-        color: black !important;
-        font-size: 1rem !important;
-    }
-
-    /* Optional: also apply to checkboxes if needed */
-    .stCheckbox > div label {
-        color: black !important;
-        font-size: 1rem !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
+# -----------------------------
+# FORCE LIGHT THEME + TEXT FIXES
+# -----------------------------
 st.markdown("""
 <style>
-/* Force all radio button labels to be black and normal weight */
-div[role="radiogroup"] > label,
-div[role="radiogroup"] span,
-.stRadio label, .stRadio span {
+html, body, [class*="css"] {
+    color: #000 !important;
+    background-color: #fff !important;
+}
+
+.stRadio > div > label {
     color: black !important;
-    font-size: 1rem !important;
+    font-size: 16px !important;
     font-weight: normal !important;
+}
+
+div.stRadio > label, div.stRadio > div > label {
+    font-size: 18px !important;
+}
+.risk-question {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+input, select, textarea {
+    background-color: white !important;
+    color: black !important;
+}
+.stButton>button {
+    background-color: black !important;
+    color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 # -----------------------------
 # APP TITLE & LOGO
@@ -72,67 +57,14 @@ and your personal risk tolerance.
 *Note: This is an educational tool and not a guarantee of future results.*
 """)
 
-# Force dark theme styling for text and widgets
-st.markdown("""
-    <style>
-    /* Make all text dark */
-    html, body, [class*="css"] {
-        color: #000 !important;
-    }
-
-    /* Fix radio button and select label colors */
-    label, .st-bw, .st-c2, .st-ca, .st-cg {
-        color: #000 !important;
-    }
-
-    /* Input boxes and dropdown text */
-    input, select, textarea {
-        color: #000 !important;
-        background-color: #fff !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-
-
-# -----------------------------
-# FORCE LIGHT THEME
-# -----------------------------
-light_theme_css = """
-<style>
-    body, .stApp {
-        background-color: white !important;
-        color: black !important;
-    }
-    input, .stNumberInput input, .stTextInput input, .stSelectbox div {
-        background-color: white !important;
-        color: black !important;
-    }
-    .stButton>button {
-        background-color: black !important;
-        color: white !important;
-    }
-</style>
-"""
-st.markdown(light_theme_css, unsafe_allow_html=True)
-
 # -----------------------------
 # TAX & INFLATION INPUTS
 # -----------------------------
 st.header("Your Tax & Inflation Info")
 
-marginal_tax = st.number_input(
-    "Marginal Tax Rate (%)", min_value=0.0, max_value=50.0, value=17.0, step=0.1
-) / 100
-
-state_tax = st.number_input(
-    "State Tax Rate (%)", min_value=0.0, max_value=20.0, value=7.0, step=0.1
-) / 100
-
-inflation = st.number_input(
-    "Inflation Rate (%)", min_value=0.0, max_value=10.0, value=3.0, step=0.1
-) / 100
-
+marginal_tax = st.number_input("Marginal Tax Rate (%)", min_value=0.0, max_value=50.0, value=17.0) / 100
+state_tax = st.number_input("State Tax Rate (%)", min_value=0.0, max_value=20.0, value=7.0) / 100
+inflation = st.number_input("Inflation Rate (%)", min_value=0.0, max_value=10.0, value=3.0) / 100
 combined_tax = marginal_tax + state_tax - (marginal_tax * state_tax)
 
 # -----------------------------
@@ -164,20 +96,6 @@ std_dev = std_dev_percent / 100
 # -----------------------------
 # RISK TOLERANCE QUESTIONS
 # -----------------------------
-# Increase font size via CSS
-st.markdown("""
-    <style>
-    div.stRadio > label, div.stRadio > div > label {
-        font-size: 18px !important;
-    }
-    .risk-question {
-        font-size: 20px;
-        font-weight: 600;
-        margin-top: 20px;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 st.header("Risk Tolerance Questionnaire")
 
 new_questions = [
@@ -230,17 +148,17 @@ for i, q in enumerate(new_questions):
     risk_points.append(-2 if choice == q["choices"][0] else 2)
 
 risk_score = sum(risk_points)
-risk_adjustment = risk_score * 0.001  # Each point = ±0.1%
+risk_adjustment = risk_score * 0.001
 
 # -----------------------------
-# CALCULATIONS
+# RETURN CALCULATIONS
 # -----------------------------
 adjusted_nominal = base_nominal + risk_adjustment
 after_tax_nominal = adjusted_nominal * (1 - combined_tax)
 net_net_net_return = (1 + after_tax_nominal) / (1 + inflation) - 1
 
 # -----------------------------
-# DISPLAY SUMMARY
+# SUMMARY DISPLAY
 # -----------------------------
 st.markdown(f"""
 ## Your Results
@@ -250,7 +168,7 @@ st.markdown(f"""
 """)
 
 # -----------------------------
-# PROJECTION SIMULATION CHART
+# SIMULATION CHART
 # -----------------------------
 st.header("Projection Simulation")
 
@@ -276,7 +194,6 @@ ax.fill_between(t, path_lower_1, path_upper_1, color="green", alpha=0.3, label="
 ax.fill_between(t, path_lower_2, path_upper_2, color="gold", alpha=0.2, label="±2 SD")
 ax.plot(t, simulated_path, color="cyan", label="Simulated Path", linewidth=1.5)
 
-ax.set_title("Projected Portfolio Value Over 30 Years")
 ax.set_xlabel("Years")
 ax.set_ylabel("Portfolio Value ($)")
 ax.legend()
@@ -287,9 +204,13 @@ ax.get_yaxis().set_major_formatter(
 
 st.pyplot(fig)
 
+# -----------------------------
+# DISCLOSURE
+# -----------------------------
 st.markdown("""
----  
+---
 **Disclosure**  
 
 Bright Road Wealth Management, LLC (“BRWM”) is a Registered Investment Adviser ("RIA"). Registration as an investment adviser does not imply a certain level of skill or training, and the content of this communication has not been approved or verified by the United States Securities and Exchange Commission or by any state securities authority. BRWM renders individualized investment advice to persons in a particular state only after complying with the state's regulatory requirements, or pursuant to an applicable state exemption or exclusion. All investments carry risk, and no investment strategy can guarantee a profit or protect from loss of capital. Past performance is not indicative of future results.
 """)
+
