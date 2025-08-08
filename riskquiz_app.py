@@ -212,3 +212,17 @@ input[type="radio"] {
 }
 </style>
 """, unsafe_allow_html=True)
+
+# Force radio button text (labels and selection dots) to be black
+st.markdown("""
+    <style>
+    div[role="radiogroup"] label {
+        color: black !important;
+    }
+    div[role="radiogroup"] svg {
+        fill: black !important;
+        stroke: black !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
