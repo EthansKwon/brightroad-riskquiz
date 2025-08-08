@@ -180,40 +180,38 @@ Bright Road Wealth Management, LLC (“BRWM”) is a Registered Investment Advis
 
 st.markdown("""
 <style>
-/* Full light theme override */
+/* Light theme background and global text */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* General input widgets */
-input, select, textarea, .stNumberInput input, .stTextInput input, .stSelectbox div {
-    background-color: white !important;
-    color: black !important;
-}
-
-/* Button styling */
-.stButton > button {
-    background-color: black !important;
-    color: white !important;
-}
-
-/* Fix radio button label text */
-div[role="radiogroup"] label {
+/* Ensure all widget text is black */
+div[role="radiogroup"] label,
+div[role="radiogroup"] span,
+label,
+.st-bw, .st-c2, .st-ca, .st-cg {
     color: black !important;
     font-size: 16px !important;
 }
 
-/* Fix radio selection circle appearance */
+/* Radio button circle (unselected and selected) */
 input[type="radio"] {
     accent-color: black !important;
     width: 16px;
     height: 16px;
 }
 
-/* Fix nested spans inside radio (common for font color issues) */
-div[role="radiogroup"] span {
+/* Other input widget styling */
+input, select, textarea, .stNumberInput input, .stTextInput input, .stSelectbox div {
+    background-color: white !important;
     color: black !important;
+}
+
+/* Button colors */
+.stButton > button {
+    background-color: black !important;
+    color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
