@@ -214,16 +214,15 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 st.markdown("""
 <style>
-/* Force light theme across app */
+/* Global white background and black text */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Make radio labels and options readable */
+/* Radio button labels */
 div[role="radiogroup"] label {
     color: black !important;
     font-size: 16px !important;
@@ -231,12 +230,13 @@ div[role="radiogroup"] label {
     align-items: center;
 }
 
-/* Show the actual radio circle clearly */
-div[role="radiogroup"] input[type="radio"] {
+/* Restore native radio buttons with black fill */
+input[type="radio"] {
+    appearance: auto !important;
     accent-color: black !important;
-    width: 18px;
-    height: 18px;
-    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
 }
 </style>
 """, unsafe_allow_html=True)
