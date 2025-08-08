@@ -180,13 +180,13 @@ Bright Road Wealth Management, LLC (“BRWM”) is a Registered Investment Advis
 
 st.markdown("""
 <style>
-/* Force white background and black text */
+/* Full light theme override */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Inputs and dropdowns */
+/* General input widgets */
 input, select, textarea, .stNumberInput input, .stTextInput input, .stSelectbox div {
     background-color: white !important;
     color: black !important;
@@ -198,23 +198,22 @@ input, select, textarea, .stNumberInput input, .stTextInput input, .stSelectbox 
     color: white !important;
 }
 
-/* Radio button label styling */
+/* Fix radio button label text */
 div[role="radiogroup"] label {
     color: black !important;
     font-size: 16px !important;
 }
 
-/* Radio circle fill and size */
+/* Fix radio selection circle appearance */
 input[type="radio"] {
     accent-color: black !important;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
 }
 
-/* Backup fix for some Streamlit themes using SVGs for radio dots */
-div[role="radiogroup"] svg {
-    fill: black !important;
-    stroke: black !important;
+/* Fix nested spans inside radio (common for font color issues) */
+div[role="radiogroup"] span {
+    color: black !important;
 }
 </style>
 """, unsafe_allow_html=True)
