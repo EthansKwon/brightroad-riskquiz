@@ -43,6 +43,18 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+/* Force all radio button labels to be black and normal weight */
+div[role="radiogroup"] > label,
+div[role="radiogroup"] span,
+.stRadio label, .stRadio span {
+    color: black !important;
+    font-size: 1rem !important;
+    font-weight: normal !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 # -----------------------------
