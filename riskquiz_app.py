@@ -26,6 +26,27 @@ and your personal risk tolerance.
 """)
 
 # -----------------------------
+# FORCE LIGHT THEME
+# -----------------------------
+light_theme_css = """
+<style>
+    body, .stApp {
+        background-color: white !important;
+        color: black !important;
+    }
+    input, .stNumberInput input, .stTextInput input, .stSelectbox div {
+        background-color: white !important;
+        color: black !important;
+    }
+    .stButton>button {
+        background-color: black !important;
+        color: white !important;
+    }
+</style>
+"""
+st.markdown(light_theme_css, unsafe_allow_html=True)
+
+# -----------------------------
 # TAX & INFLATION INPUTS
 # -----------------------------
 st.header("Your Tax & Inflation Info")
