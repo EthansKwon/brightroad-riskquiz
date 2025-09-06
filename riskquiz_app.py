@@ -135,42 +135,34 @@ inflation = st.number_input("Inflation Rate (%)", min_value=0.0, max_value=10.0,
 combined_tax = marginal_tax + state_tax - (marginal_tax * state_tax)
 
 # -----------------------------
-# VOLATILITY BANDS (6 options — dropdown shows only SD + range)
+# VOLATILITY BANDS (6 options — dropdown shows only Annualized Return + Lowest 1-Year Return)
 # -----------------------------
 bands = [
-    {"mean_pct": 5.15, "vol_pct": 2.55},   # 0/100
-    {"mean_pct": 6.56, "vol_pct": 4.09},   # 20/80
-    {"mean_pct": 7.89, "vol_pct": 6.66},   # 40/60
-    {"mean_pct": 8.94, "vol_pct": 9.38},   # 60/40
-    {"mean_pct": 9.90, "vol_pct": 12.20},  # 80/20
-    {"mean_pct": 10.72,"vol_pct": 15.04},  # 100/0
+    {"mean_pct": 5.15, "vol_pct": 2.55,  "lowest_1y_pct": -6.31},
+    {"mean_pct": 6.56, "vol_pct": 4.09,  "lowest_1y_pct": -11.93},
+    {"mean_pct": 7.89, "vol_pct": 6.66,  "lowest_1y_pct": -21.31},
+    {"mean_pct": 8.94, "vol_pct": 9.38,  "lowest_1y_pct": -30.59},
+    {"mean_pct": 9.90, "vol_pct": 12.20, "lowest_1y_pct": -39.00},
+    {"mean_pct": 10.72,"vol_pct": 15.04, "lowest_1y_pct": -46.62},
 ]
 
-# Build labels for dropdown (only SD + range shown)
 labels = []
 for b in bands:
-    lower = b["mean_pct"] - b["vol_pct"]
-    upper = b["mean_pct"] + b["vol_pct"]
-    label = f"1 SD: ±{b['vol_pct']:.2f}% | Range: {lower:.2f}% to {upper:.2f}%"
+    label = f"Annualized Return: {b['mean_pct']:.2f}% | Lowest 1-Year Return: {b['lowest_1y_pct']:.2f}%"
     labels.append(label)
 
 st.header("Choose Your Volatility Band")
 choice_label = st.selectbox(
-    "Select the return/volatility profile that matches your comfort:",
+    "Select the profile you’re comfortable with:",
     labels
 )
 
-# Map back to the selected band
 sel_idx = labels.index(choice_label)
 sel_band = bands[sel_idx]
 
-# Convert to decimals for calculations (annualized return still drives outputs/simulation)
 base_nominal = sel_band["mean_pct"] / 100.0
 sigma = sel_band["vol_pct"] / 100.0
 
-# -----------------------------
-# Source disclosure
-# -----------------------------
 st.caption("Data source: Matrix Book 2025 (DFA). Calculations/illustration by BRWM.")
 
 
