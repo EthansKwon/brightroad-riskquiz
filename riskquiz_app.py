@@ -7,13 +7,13 @@ st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
 
 st.markdown("""
 <style>
-/* Global background and text colors */
+/* Global background and text */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Inputs and text fields */
+/* Form input fields */
 input, select, textarea,
 .stNumberInput input,
 .stTextInput input,
@@ -22,39 +22,48 @@ input, select, textarea,
     color: black !important;
 }
 
-/* Dropdown menu items */
-div[data-baseweb="select"] > div {
+/* Dropdown menu fix */
+.stSelectbox div[role="combobox"] > div {
     background-color: white !important;
     color: black !important;
 }
 
-/* This targets the open dropdown options */
-div[data-baseweb="popover"] {
+.stSelectbox ul {
     background-color: white !important;
 }
 
-div[data-baseweb="popover"] * {
+.stSelectbox ul li {
     color: black !important;
 }
 
-/* Fix radio button text and circle */
+/* Radio buttons: circles */
+input[type="radio"] {
+    accent-color: black !important;
+    width: 16px;
+    height: 16px;
+}
+
+/* Radio buttons: text */
 div[role="radiogroup"] label,
 div[role="radiogroup"] span {
     color: black !important;
     font-size: 16px !important;
+    font-weight: normal !important;
 }
 
-input[type="radio"] {
-    accent-color: black !important;
+/* All labels */
+label, .st-bw, .st-c2, .st-ca, .st-cg {
+    color: black !important;
 }
 
-/* Fix button style */
+/* Buttons */
 .stButton > button {
     background-color: black !important;
     color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
