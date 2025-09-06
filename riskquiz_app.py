@@ -9,36 +9,25 @@ import streamlit as st
 
 st.markdown("""
 <style>
-/* Set global background and font color */
+
+/* App background and base font color */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* All text elements (titles, labels, questions) */
+/* Target titles and section headings */
 h1, h2, h3, h4, h5, h6,
-label, div, span, p, .stText, .stMarkdown, .css-10trblm, .css-1v0mbdj, .css-1dp5vir {
+.css-10trblm, .css-1v0mbdj, .css-1dp5vir {
     color: black !important;
 }
 
-/* Dropdown selected item */
-div[data-baseweb="select"] > div {
-    color: black !important;
-    background-color: white !important;
-}
-
-/* Dropdown menu list */
-ul[role="listbox"] {
-    background-color: white !important;
+/* Form labels, radio, text, etc */
+label, div[role="radiogroup"] label, span, p, .stMarkdown {
     color: black !important;
 }
 
-/* Dropdown options */
-ul[role="listbox"] > li {
-    color: black !important;
-}
-
-/* Fix input fields (number, text) */
+/* Inputs and text fields */
 input, select, textarea,
 .stNumberInput input,
 .stTextInput input {
@@ -46,25 +35,43 @@ input, select, textarea,
     color: black !important;
 }
 
-/* Fix radio button labels */
-div[role="radiogroup"] label,
-div[role="radiogroup"] span {
-    color: black !important;
-    font-size: 16px !important;
-}
-
-/* Fix radio circle */
+/* Radio button circle */
 input[type="radio"] {
     accent-color: black !important;
 }
 
-/* Fix buttons */
+/* Buttons */
 .stButton > button {
     background-color: black !important;
     color: white !important;
 }
+
+/* Dropdown selected value */
+div[data-baseweb="select"] > div {
+    background-color: white !important;
+    color: black !important;
+}
+
+/* Dropdown menu list */
+ul[role="listbox"] {
+    background-color: white !important;
+}
+
+/* Dropdown items */
+ul[role="listbox"] > li {
+    color: black !important;
+    background-color: white !important;
+}
+
+/* Highlighted (hovered) dropdown option */
+ul[role="listbox"] > li[aria-selected="true"] {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
