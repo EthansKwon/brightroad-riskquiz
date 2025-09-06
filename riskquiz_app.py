@@ -5,55 +5,53 @@ import matplotlib.pyplot as plt
 # Set light theme and page layout
 st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
 
+import streamlit as st
+
 st.markdown("""
 <style>
-/* Global background and text */
+
+/* Light theme background and text */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Form input fields */
-input, select, textarea,
-.stNumberInput input,
-.stTextInput input,
-.stSelectbox div {
+/* Form inputs: textboxes, selects, etc */
+input, textarea, select, button, .stTextInput > div > input, .stNumberInput input {
     background-color: white !important;
     color: black !important;
 }
 
-/* Dropdown menu fix */
-.stSelectbox div[role="combobox"] > div {
-    background-color: white !important;
-    color: black !important;
-}
-
-.stSelectbox ul {
-    background-color: white !important;
-}
-
-.stSelectbox ul li {
-    color: black !important;
-}
-
-/* Radio buttons: circles */
-input[type="radio"] {
-    accent-color: black !important;
-    width: 16px;
-    height: 16px;
-}
-
-/* Radio buttons: text */
-div[role="radiogroup"] label,
+/* Radio button text */
+div[role="radiogroup"] label, 
 div[role="radiogroup"] span {
     color: black !important;
     font-size: 16px !important;
-    font-weight: normal !important;
 }
 
-/* All labels */
-label, .st-bw, .st-c2, .st-ca, .st-cg {
+/* Radio button dot color */
+input[type="radio"] {
+    accent-color: black !important;
+}
+
+/* Dropdown menu styling */
+.stSelectbox div[data-baseweb="select"] {
+    background-color: white !important;
     color: black !important;
+}
+
+.stSelectbox div[data-baseweb="select"] * {
+    color: black !important;
+}
+
+/* Dropdown options panel (the open dropdown box) */
+.css-1n76uvr {  /* class for dropdown options */
+    background-color: white !important;
+}
+
+.css-11unzgr, .css-1dimb5e, .css-13cymwt {
+    color: black !important;
+    background-color: white !important;
 }
 
 /* Buttons */
