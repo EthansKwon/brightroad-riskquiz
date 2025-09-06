@@ -9,52 +9,52 @@ import streamlit as st
 
 st.markdown("""
 <style>
-
-/* Light theme background and text */
+/* Global text and background */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Form inputs: textboxes, selects, etc */
-input, textarea, select, button, .stTextInput > div > input, .stNumberInput input {
+/* Headers and titles */
+h1, h2, h3, h4, h5, h6, .stMarkdown, .st-bc {
+    color: black !important;
+}
+
+/* Input boxes, number inputs, text fields */
+input, select, textarea,
+.stNumberInput input,
+.stTextInput input,
+.stSelectbox div {
     background-color: white !important;
     color: black !important;
 }
 
-/* Radio button text */
-div[role="radiogroup"] label, 
-div[role="radiogroup"] span {
+/* Dropdown select text + menu */
+.css-1wa3eu0-placeholder, .css-1uccc91-singleValue, .stSelectbox div, .stSelectbox label, .css-1n76uvr {
+    color: black !important;
+    background-color: white !important;
+}
+
+/* Dropdown menu options */
+div[data-baseweb="select"] {
+    background-color: white !important;
+    color: black !important;
+}
+
+/* Fix radio button text */
+div[role="radiogroup"] label, div[role="radiogroup"] span {
     color: black !important;
     font-size: 16px !important;
 }
 
-/* Radio button dot color */
+/* Fix radio button circle color */
 input[type="radio"] {
     accent-color: black !important;
+    width: 16px;
+    height: 16px;
 }
 
-/* Dropdown menu styling */
-.stSelectbox div[data-baseweb="select"] {
-    background-color: white !important;
-    color: black !important;
-}
-
-.stSelectbox div[data-baseweb="select"] * {
-    color: black !important;
-}
-
-/* Dropdown options panel (the open dropdown box) */
-.css-1n76uvr {  /* class for dropdown options */
-    background-color: white !important;
-}
-
-.css-11unzgr, .css-1dimb5e, .css-13cymwt {
-    color: black !important;
-    background-color: white !important;
-}
-
-/* Buttons */
+/* Fix button color */
 .stButton > button {
     background-color: black !important;
     color: white !important;
