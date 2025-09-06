@@ -9,58 +9,63 @@ import streamlit as st
 
 st.markdown("""
 <style>
-/* Global text and background */
+/* Set global background and font color */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Headers and titles */
-h1, h2, h3, h4, h5, h6, .stMarkdown, .st-bc {
+/* All text elements (titles, labels, questions) */
+h1, h2, h3, h4, h5, h6,
+label, div, span, p, .stText, .stMarkdown, .css-10trblm, .css-1v0mbdj, .css-1dp5vir {
     color: black !important;
 }
 
-/* Input boxes, number inputs, text fields */
+/* Dropdown selected item */
+div[data-baseweb="select"] > div {
+    color: black !important;
+    background-color: white !important;
+}
+
+/* Dropdown menu list */
+ul[role="listbox"] {
+    background-color: white !important;
+    color: black !important;
+}
+
+/* Dropdown options */
+ul[role="listbox"] > li {
+    color: black !important;
+}
+
+/* Fix input fields (number, text) */
 input, select, textarea,
 .stNumberInput input,
-.stTextInput input,
-.stSelectbox div {
+.stTextInput input {
     background-color: white !important;
     color: black !important;
 }
 
-/* Dropdown select text + menu */
-.css-1wa3eu0-placeholder, .css-1uccc91-singleValue, .stSelectbox div, .stSelectbox label, .css-1n76uvr {
-    color: black !important;
-    background-color: white !important;
-}
-
-/* Dropdown menu options */
-div[data-baseweb="select"] {
-    background-color: white !important;
-    color: black !important;
-}
-
-/* Fix radio button text */
-div[role="radiogroup"] label, div[role="radiogroup"] span {
+/* Fix radio button labels */
+div[role="radiogroup"] label,
+div[role="radiogroup"] span {
     color: black !important;
     font-size: 16px !important;
 }
 
-/* Fix radio button circle color */
+/* Fix radio circle */
 input[type="radio"] {
     accent-color: black !important;
-    width: 16px;
-    height: 16px;
 }
 
-/* Fix button color */
+/* Fix buttons */
 .stButton > button {
     background-color: black !important;
     color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
