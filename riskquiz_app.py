@@ -213,33 +213,63 @@ st.markdown(f"""
 """)
 
 # -----------------------------
-# PROJECTION SIMULATION CHART
+# PROJECTION SIMULATION
 # -----------------------------
 st.header("Projection Simulation")
 
-years = 30
-start_value = 100000
-mu = np.log(1 + adjusted_nominal)
-sigma = std_dev
+# User controls (optional)
+years = st.number_input("Years", min_value=1, max_value=60, value=30, step=1)
+start_value = st.number_input("Starting Value ($)", min_value=1000, value=100000, step=1000)
+seed_txt = st.text_input("Random seed (optional)", value="")
+
+# Safe seed handling
+if seed_txt.strip():
+    try:
+        np.random.seed(int(seed_txt.strip()))
+    except Exception:
+        np.random.seed(42)  # fallback
+else:
+    np.random.seed()  # random each run
+
+# Make sure these exist even if earlier code order changes
+try:
+    _sigma = float(sigma)
+except NameError:
+    # if bands block didn't run, default very conservatively
+    _sigma = 0.10
+
+try:
+    _risk_adj = float(risk_adjustment)
+except NameError:
+    _risk_adj = 0.0
+
+# Expected nominal used for sim
+adjusted_nominal = max(-0.50, base_nominal + _risk_adj)  # clamp extreme negatives
+mu = np.log(1.0 + adjusted_nominal)
+
 t = np.arange(years + 1)
 
+# Expected path (geometric growth with drift mu)
 mean_path = start_value * np.exp(mu * t)
-path_upper_1 = np.minimum(mean_path * np.exp(sigma * t), mean_path * 2.5)
-path_lower_1 = mean_path * np.exp(-sigma * t)
-path_upper_2 = np.minimum(mean_path * np.exp(2 * sigma * t), mean_path * 3)
-path_lower_2 = mean_path * np.exp(-2 * sigma * t)
 
-random_shocks = np.random.normal(0, sigma, size=years)
-log_returns = mu + random_shocks - (sigma**2)/2
-simulated_path = start_value * np.exp(np.insert(np.cumsum(log_returns), 0, 0))
+# Simple ±1σ and ±2σ envelopes (visual), matching your previous style
+path_upper_1 = np.minimum(mean_path * np.exp(_sigma * t), mean_path * 2.5)
+path_lower_1 = mean_path * np.exp(-_sigma * t)
+path_upper_2 = np.minimum(mean_path * np.exp(2 * _sigma * t), mean_path * 3.0)
+path_lower_2 = mean_path * np.exp(-2 * _sigma * t)
+
+# One simulated path
+random_shocks = np.random.normal(0.0, _sigma, size=years)
+log_returns = mu + random_shocks - (_sigma ** 2) / 2.0
+simulated_path = start_value * np.exp(np.insert(np.cumsum(log_returns), 0, 0.0))
 
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(t, mean_path, label="Expected Value (EV)", color="red", linewidth=2)
-ax.fill_between(t, path_lower_1, path_upper_1, color="green", alpha=0.3, label="±1 SD")
-ax.fill_between(t, path_lower_2, path_upper_2, color="gold", alpha=0.2, label="±2 SD")
-ax.plot(t, simulated_path, color="cyan", label="Simulated Path", linewidth=1.5)
+ax.plot(t, mean_path, label="Expected Value (EV)", linewidth=2)
+ax.fill_between(t, path_lower_1, path_upper_1, alpha=0.3, label="±1 SD")
+ax.fill_between(t, path_lower_2, path_upper_2, alpha=0.2, label="±2 SD")
+ax.plot(t, simulated_path, label="Simulated Path", linewidth=1.5)
 
-ax.set_title("Projected Portfolio Value Over 30 Years")
+ax.set_title("Projected Portfolio Value")
 ax.set_xlabel("Years")
 ax.set_ylabel("Portfolio Value ($)")
 ax.legend()
