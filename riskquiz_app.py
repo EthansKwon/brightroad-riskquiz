@@ -7,42 +7,55 @@ st.set_page_config(page_title="Bright Road Risk Quiz", layout="centered")
 
 st.markdown("""
 <style>
-/* Set white background and black text globally */
+/* Global background and text colors */
 html, body, .stApp {
     background-color: white !important;
     color: black !important;
 }
 
-/* Ensure all default text is black */
-*, div, p, span, label {
-    color: black !important;
-}
-
-/* Fix for radio button circles and labels */
-div[role="radiogroup"] label, div[role="radiogroup"] span {
-    color: black !important;
-    font-size: 16px !important;
-    font-weight: normal !important;
-}
-input[type="radio"] {
-    accent-color: black !important;
-    width: 16px;
-    height: 16px;
-}
-
-/* Input fields */
-input, select, textarea, .stNumberInput input, .stTextInput input, .stSelectbox div {
+/* Inputs and text fields */
+input, select, textarea,
+.stNumberInput input,
+.stTextInput input,
+.stSelectbox div {
     background-color: white !important;
     color: black !important;
 }
 
-/* Button styles */
+/* Dropdown menu items */
+div[data-baseweb="select"] > div {
+    background-color: white !important;
+    color: black !important;
+}
+
+/* This targets the open dropdown options */
+div[data-baseweb="popover"] {
+    background-color: white !important;
+}
+
+div[data-baseweb="popover"] * {
+    color: black !important;
+}
+
+/* Fix radio button text and circle */
+div[role="radiogroup"] label,
+div[role="radiogroup"] span {
+    color: black !important;
+    font-size: 16px !important;
+}
+
+input[type="radio"] {
+    accent-color: black !important;
+}
+
+/* Fix button style */
 .stButton > button {
     background-color: black !important;
     color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # Global CSS for light theme and readable text
