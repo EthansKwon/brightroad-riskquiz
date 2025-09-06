@@ -135,30 +135,46 @@ inflation = st.number_input("Inflation Rate (%)", min_value=0.0, max_value=10.0,
 combined_tax = marginal_tax + state_tax - (marginal_tax * state_tax)
 
 # -----------------------------
-# VOLATILITY BANDS
+# VOLATILITY BANDS (6 options — dropdown shows only SD + range)
 # -----------------------------
-volatility_mapping = {
-    "Worst Year: -3%, Best Year: +6%": (3.5, 3.0),
-    "Worst Year: -5%, Best Year: +9%": (4.0, 4.0),
-    "Worst Year: -8%, Best Year: +12%": (4.5, 5.0),
-    "Worst Year: -11%, Best Year: +15%": (5.0, 6.0),
-    "Worst Year: -14%, Best Year: +19%": (5.5, 7.0),
-    "Worst Year: -18%, Best Year: +23%": (6.0, 8.0),
-    "Worst Year: -21%, Best Year: +28%": (6.5, 10.0),
-    "Worst Year: -25%, Best Year: +33%": (7.0, 12.0),
-    "Worst Year: -30%, Best Year: +38%": (7.5, 14.0),
-    "Worst Year: -36%, Best Year: +43%": (8.0, 16.0),
-    "Worst Year: -43%, Best Year: +47%": (8.5, 18.0),
-}
+bands = [
+    {"mean_pct": 5.15, "vol_pct": 2.55},   # 0/100
+    {"mean_pct": 6.56, "vol_pct": 4.09},   # 20/80
+    {"mean_pct": 7.89, "vol_pct": 6.66},   # 40/60
+    {"mean_pct": 8.94, "vol_pct": 9.38},   # 60/40
+    {"mean_pct": 9.90, "vol_pct": 12.20},  # 80/20
+    {"mean_pct": 10.72,"vol_pct": 15.04},  # 100/0
+]
+
+# Build labels for dropdown (only SD + range shown)
+labels = []
+for b in bands:
+    lower = b["mean_pct"] - b["vol_pct"]
+    upper = b["mean_pct"] + b["vol_pct"]
+    label = f"1 SD: ±{b['vol_pct']:.2f}% | Range: {lower:.2f}% to {upper:.2f}%"
+    labels.append(label)
 
 st.header("Choose Your Volatility Band")
-volatility_choice = st.selectbox(
-    "Select the volatility range that matches your comfort with market swings:",
-    list(volatility_mapping.keys())
+choice_label = st.selectbox(
+    "Select the return/volatility profile that matches your comfort:",
+    labels
 )
-base_nominal, std_dev_percent = volatility_mapping[volatility_choice]
-base_nominal /= 100
-std_dev = std_dev_percent / 100
+
+# Map back to the selected band
+sel_idx = labels.index(choice_label)
+sel_band = bands[sel_idx]
+
+# Convert to decimals for calculations (annualized return still drives outputs/simulation)
+base_nominal = sel_band["mean_pct"] / 100.0
+sigma = sel_band["vol_pct"] / 100.0
+
+# -----------------------------
+# Source disclosure
+# -----------------------------
+st.caption("Data source: Matrix Book 2025 (DFA). Calculations/illustration by BRWM.")
+
+
+
 
 # -----------------------------
 # RISK TOLERANCE QUESTIONS
